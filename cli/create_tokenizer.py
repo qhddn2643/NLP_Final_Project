@@ -87,9 +87,6 @@ def main():
 
     logger.info(f"Building tokenizer for the source language (might take a couple of minutes)")
 
-    # Optional Task: If you are using a dataset different from stas/wmt14-en-de-pre-processed
-    # depending on the dataset format, you might need to modify the iterator (line 109)
-    # YOUR CODE STARTS HERE
     source_tokenizer = Tokenizer(BPE(unk_token="[UNK]"))
     source_tokenizer_trainer = BpeTrainer(special_tokens=["[UNK]", "[PAD]", "[BOS]", "[EOS]"], vocab_size=args.vocab_size)
     source_tokenizer.pre_tokenizer = Whitespace()
@@ -108,7 +105,6 @@ def main():
     )
     logger.info(f"Saving source to {args.save_dir}/{args.source_lang}_tokenizer")
     source_tokenizer.save_pretrained(os.path.join(args.save_dir, f"{args.source_lang}_tokenizer"))
-    # YOUR CODE ENDS HERE
 
     logger.info(f"Building tokenizer for the target language (might take a couple of minutes)")
 
