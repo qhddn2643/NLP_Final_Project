@@ -112,17 +112,6 @@ def main():
 
     logger.info(f"Building tokenizer for the target language (might take a couple of minutes)")
 
-    # Task 3.1: by analogy to the source tokenizer above, make a tokenizer for the target language
-    # 1. Build a target tokenizer,
-    # 2. Train it on args.target_lang
-    # 3. Convert to transformers.PreTrainedTokenizerFast and save to save_dir/target_tokenizer.
-    #
-    # BOS is beginning-of-sequence special token.
-    # EOS is end-of-sequence special token.
-    # PAD is a padding token.
-    #
-    # Above every code line leave a short comment explaining what it does.
-    # YOUR CODE STARTS HERE (our implementation is 8 lines of code)
     target_tokenizer = Tokenizer(BPE(unk_token="[UNK]"))
     target_tokenizer_trainer = BpeTrainer(special_tokens=["[UNK]", "[PAD]", "[BOS]", "[EOS]"], vocab_size=args.vocab_size)
     target_tokenizer.pre_tokenizer = Whitespace()
@@ -131,7 +120,6 @@ def main():
     target_tokenizer = transformers.PreTrainedTokenizerFast(tokenizer_object=target_tokenizer, bos_token="[BOS]", eos_token="[EOS]", pad_token="[PAD]")
     logger.info(f"Saving source to {args.save_dir}/{args.target_lang}_tokenizer")
     target_tokenizer.save_pretrained(os.path.join(args.save_dir, f"{args.target_lang}_tokenizer"))
-    # YOUR CODE ENDS HERE
 
 if __name__ == "__main__" :
     if version.parse(datasets.__version__) < version.parse("1.18.0"):
